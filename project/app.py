@@ -24,8 +24,6 @@ def initial_parameters() -> tuple:
 model, parser, client = initial_parameters() 
 
 
-# os.environ['OPENAI_API_KEY'] = config('OPENAI_API_KEY')
-
 st.set_page_config(
     page_title='Stock Sales',
     page_icon='📄',
