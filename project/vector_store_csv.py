@@ -3,9 +3,19 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import CSVLoader
 from langchain_openai import OpenAIEmbeddings
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI, OpenAI
+from langchain_core.output_parsers import StrOutputParser
 
 
-os.environ["OPENAI_API_KEY"] = 'SUA CHAVE DE API'
+def initial_parameters() -> tuple:
+    load_dotenv()
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    model = ChatOpenAI(model="gpt-4o-mini")
+    parser = StrOutputParser()
+    return model, parser, client
+
+model, parser, client = initial_parameters() 
 
 pdf_path = 'data/carros.csv'
 loader = CSVLoader(pdf_path)
