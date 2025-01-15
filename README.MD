@@ -62,9 +62,7 @@ OPENAI_API_KEY=your_openai_api_key
  5. Executar a Aplicação
 
 ```bash
-streamlit run 
-
-app.py
+streamlit run app.py
 
 
 ```
@@ -79,5 +77,4 @@ Este projeto foi desenvolvido para fornecer uma interface amigável para consult
 
 ---
 
-Sinta-se à vontade para ajustar o conteúdo conforme necessário para se adequar ao seu projeto específico.
 ```
