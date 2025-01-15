@@ -40,9 +40,7 @@ source venv/bin/activate  # No Windows use `venv\Scripts\activate`
 ### 3. Instalar as Dependências
 
 ```bash
-pip install -r 
-
-requirements.txt
+pip install -r requirements.txt
 
 
 ```
@@ -64,7 +62,6 @@ OPENAI_API_KEY=your_openai_api_key
 ```bash
 streamlit run app.py
 
-
 ```
 
 ## Dependências
@@ -77,4 +74,3 @@ Este projeto foi desenvolvido para fornecer uma interface amigável para consult
 
 ---
 
-```
