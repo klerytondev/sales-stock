@@ -25,14 +25,17 @@ def initial_parameters() -> tuple:
     parser = StrOutputParser()
     return model, parser, client
 
+# Inicializa os parâmetros do modelo
 model, parser, client = initial_parameters() 
 
+# Configura a página do Streamlit
 st.set_page_config(
     page_title='Stock Sales',
     page_icon='📄',
 )
 st.header('Assistente de Estoque')
 
+# Opções de modelos disponíveis
 model_options = [
     'Nenhum',
     'gpt-3.5-turbo',
@@ -41,14 +44,17 @@ model_options = [
     'gpt-4o-mini',
     'gpt-4o',
 ]
+# Seleção do modelo pelo usuário
 selected_model = st.sidebar.selectbox(
     label='Selecione o modelo LLM',
     options=model_options,
 )
 
+# Informações sobre o aplicativo na barra lateral
 st.sidebar.markdown('### Sobre')
 st.sidebar.markdown('Este agente consulta um banco de dados de estoque utilizando um modelo de LLM.')
 
+# Entrada de dados pelo usuário
 st.write('Faça perguntas sobre o estoque de produtos, preços e reposições.')
 user_question = st.text_input('O que deseja saber sobre o estoque?')
 database_name = st.text_input('Nome do Banco de Dados')
@@ -56,6 +62,7 @@ table_name = st.text_input('Nome da Tabela')
 start_date = st.date_input('Data de Início')
 end_date = st.date_input('Data de Fim')
 
+# Atualiza o modelo com a seleção do usuário
 model = ChatOpenAI(
     model=selected_model,
 )
@@ -101,6 +108,7 @@ def query_athena(query: str):
     else:
         raise Exception('Query failed')
 
+# Botão para executar a consulta
 if st.button('Consultar'):
     if user_question and database_name and table_name and start_date and end_date:
         with st.spinner('Consultando o banco de dados...'):
