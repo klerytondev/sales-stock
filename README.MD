@@ -7,15 +7,14 @@ Este projeto utiliza Streamlit para criar uma interface de usuário que interage
 ```
 .
 ├── projects
-│   ├── app.py
+│   ├── app-athena.py
 │   └── estoque.db
 ├── .env
 ├── requirements.txt
 └── README.md
-
 ```
 
-- `projects/app.py`: Código principal da aplicação.
+- `projects/app-athena.py`: Código principal da aplicação.
 - `projects/estoque.db`: Banco de dados de estoque.
 - `.env`: Arquivo contendo variáveis de ambiente, como a chave da API do OpenAI.
 - `requirements.txt`: Lista de dependências do projeto.
@@ -41,27 +40,22 @@ source venv/bin/activate  # No Windows use `venv\Scripts\activate`
 
 ```bash
 pip install -r requirements.txt
-
-
 ```
 
 ### 4. Configurar Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do projeto e adicione sua chave da API do OpenAI:
+Crie um arquivo `.env` na raiz do projeto e adicione sua chave da API do OpenAI e as credenciais da AWS:
 
 ```
 OPENAI_API_KEY=your_openai_api_key
+AWS_ACCESS_KEY_ID=your_aws_access_key_id
+AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
 ```
 
-
-
-###
-
- 5. Executar a Aplicação
+### 5. Executar a Aplicação
 
 ```bash
-streamlit run app.py
-
+streamlit run projects/app-athena.py
 ```
 
 ## Dependências
@@ -71,6 +65,4 @@ As dependências do projeto estão listadas no arquivo `requirements.txt`. Certi
 ## Sobre
 
 Este projeto foi desenvolvido para fornecer uma interface amigável para consultar um banco de dados de estoque utilizando modelos de linguagem avançados.
-
----
 
