@@ -13,6 +13,12 @@ from langchain_openai import ChatOpenAI, OpenAI
 from langchain_core.output_parsers import StrOutputParser
 
 def initial_parameters() -> tuple:
+    """
+    Carrega as variáveis de ambiente e inicializa os parâmetros do modelo.
+
+    Returns:
+        tuple: Contém o modelo, o parser e o cliente OpenAI.
+    """
     load_dotenv()
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     model = ChatOpenAI(model="gpt-4o-mini")
@@ -63,6 +69,15 @@ athena_client = boto3.client(
 )
 
 def query_athena(query: str):
+    """
+    Executa uma consulta no Amazon Athena e retorna os resultados.
+
+    Args:
+        query (str): A consulta SQL a ser executada.
+
+    Returns:
+        list: Resultados da consulta.
+    """
     response = athena_client.start_query_execution(
         QueryString=query,
         QueryExecutionContext={
