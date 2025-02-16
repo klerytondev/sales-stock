@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+from pyspark.sql import SparkSession
 import boto3
 from decouple import config
 from langchain import hub
@@ -11,6 +12,11 @@ from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI, OpenAI
 from langchain_core.output_parsers import StrOutputParser
+
+# Inicializa a sessão Spark
+spark = SparkSession.builder \
+    .appName("Athena Query to Spark DataFrame") \
+    .getOrCreate()
 
 def initial_parameters() -> tuple:
     """
@@ -112,12 +118,18 @@ def query_athena(query: str):
 if st.button('Consultar'):
     if user_question and database_name and table_name and start_date and end_date:
         with st.spinner('Consultando o banco de dados...'):
+            # Consultar o banco de dados
             query = f"""
-            SELECT * FROM {table_name}
-            WHERE date >= '{start_date}' AND date <= '{end_date}'
-            AND question LIKE '%{user_question}%'
-            """
+                        SELECT * FROM {table_name}
+                        WHERE date >= '{start_date}' AND date <= '{end_date}'
+                        """
             results = query_athena(query)
-            st.write(results)
+            df = spark.createDataFrame(results)
+            
+            # Usar os resultados como contexto para a LLM
+            context = "\n".join([str(row) for row in results])
+            prompt = f"Contexto: {context}\n\nPergunta: {user_question}"
+            response = model(prompt)
+            st.write(response)
     else:
         st.warning('Por favor, insira a pergunta, nome do banco de dados, nome da tabela e selecione as datas.')
